@@ -1,5 +1,7 @@
 package com.javabrains.springblog.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,10 +20,7 @@ import com.javabrains.springblog.security.JwtProvider;
 
 
 @Service
-@Transactional
 public class AuthService {
-	
-
 
 	@Autowired
 	private UserRepository userRepository;
@@ -35,7 +34,7 @@ public class AuthService {
 	@Autowired
 	private JwtProvider jwtProvider;
 	
-	@Transactional
+	
 	public void signup(RegisterRequest registerRequest) {
 		User user = new User();
 		user.setUserName(registerRequest.getUsername());
@@ -50,11 +49,18 @@ public class AuthService {
 	}
 
 
-	public String login(LoginRequest loginRequest) {
+	public AuthenticationResponse login(LoginRequest loginRequest) {
 		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                 loginRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authenticate);
-        return jwtProvider.generateToken(authenticate);
+		String authenticationToken = jwtProvider.generateToken(authenticate);
+        return new AuthenticationResponse(authenticationToken, loginRequest.getUsername());
 	}
+
+
+	public Optional<org.springframework.security.core.userdetails.User> getCurrentUser() {
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
+                getContext().getAuthentication().getPrincipal();
+        return Optional.of(principal);
+    }
 
 }

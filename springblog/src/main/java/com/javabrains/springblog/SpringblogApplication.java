@@ -7,10 +7,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
-@ComponentScan(basePackages = {"com.javabrains.springblog"})
-@EntityScan("com.javabrains.springblog.model")
-@EnableJpaRepositories(basePackages="com.javabrains.springblog.repository")
+@SpringBootApplication
 public class SpringblogApplication {
 
 	public static void main(String[] args) {

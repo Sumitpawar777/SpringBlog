@@ -15,8 +15,19 @@ public class User {
     private String password;
     @Column
     private String email;
-
-    public Long getId() {
+    
+    public User() {
+    	
+    }
+   
+    public User(String userName, String password, String email) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+	}
+    
+	public Long getId() {
         return id;
     }
 

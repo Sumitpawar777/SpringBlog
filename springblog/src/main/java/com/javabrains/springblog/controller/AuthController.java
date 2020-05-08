@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import com.javabrains.springblog.dto.LoginRequest;
 import com.javabrains.springblog.dto.RegisterRequest;
 import com.javabrains.springblog.service.AuthService;
+import com.javabrains.springblog.service.AuthenticationResponse;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -27,7 +28,7 @@ public class AuthController {
 	 }
 	
 	  @PostMapping("/login")
-	  public String login(@RequestBody LoginRequest loginRequest) {
+	  public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
 	        return authService.login(loginRequest);
 	  }
 

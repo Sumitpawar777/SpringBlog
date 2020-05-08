@@ -25,8 +25,24 @@ public class Post {
     @Column
     @NotBlank
     private String username;
+    
+    public Post() {
+    	
+    }
+    
+    public Post(@NotBlank String title, @NotEmpty String content, Instant createdOn, Instant updatedOn,
+			@NotBlank String username) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.createdOn = createdOn;
+		this.updatedOn = updatedOn;
+		this.username = username;
+	}
 
-    public Long getId() {
+
+
+	public Long getId() {
         return id;
     }
 
